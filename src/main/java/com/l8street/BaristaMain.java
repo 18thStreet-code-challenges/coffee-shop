@@ -2,6 +2,9 @@ package com.l8street;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class BaristaMain implements BaristaConstants {
@@ -46,6 +49,22 @@ public class BaristaMain implements BaristaConstants {
 	    			Drink r = app.recipes.getRecipeByOrdinal(action - 1);
 	    			if (app.inventory.sellUnit(r)) {
 	    				sb.append(app.dispensingMessage(r.getName())).append(EOL);
+					
+					Calendar cal = new GregorianCalendar();
+                                        int month = cal.get(Calendar.MONTH);
+                                        int day = cal.get(Calendar.DAY_OF_MONTH);
+                                        int year = cal.get(Calendar.YEAR);
+                                        
+                                        int second = cal.get(Calendar.SECOND);
+                                        int minute = cal.get(Calendar.MINUTE);
+                                        int hour = cal.get(Calendar.HOUR);
+                                        
+                                        DecimalFormat mFormat= new DecimalFormat("00");
+                                        String dayDigits = mFormat.format(Double.valueOf(day));
+        
+                                        System.out.println("Date Processed: " + (month+1)+"/"+dayDigits+"/"+year);
+                                        System.out.println("Time Processed: " + hour + ":" + (minute) + ":" +second);
+					
 	    			}
 	    			else {
 	    				sb.append(app.outOfStockMessage(r.getName())).append(EOL);
